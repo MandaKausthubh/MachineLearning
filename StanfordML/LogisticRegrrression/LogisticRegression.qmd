@@ -3,23 +3,38 @@ title: "Logistic Gradient Descent"
 format: html
 ---
 
-# Logistic Regression 
+# Classification and Logistic Regression:
 
-## What is Logistic Regression ?
+## Logistic Regression Problem:
 
-It is something that is similar to a Classification Problem. It tells us some kind of "Probabilistic" representation of an event with binary outcomes, each represented as {0 or 1}.
+This is somewhat related to the binary classification problem $(y ∈ \{0,1\})$, but where give out the probability of it being of the output 1.
 
-### Mathematical Explanation.
-We have our parameter $θ$ which is our vector (n+1 dimensional, where n is the number of parameters).
-Our data is of the form {$x^{(i)}, y^{(i)}$}, where x is an n-dimensional vector of parameter values and y is 0 or 1.
+- The data we have is of the form of $(x^{(i)}, y^{(i)})$ where x is an n-dimensional vector. (We can pad it with one to make
+it into an (n+1) dimensional vector) and y is a {0,1}.
 
-Our prediction model is based on the sigmoid function.
-$$
-P(y=1 | x;θ) = h_θ (x) = \frac {1} {1 + e^{θ^Tx}} = g(θ^Tx)
-$$
+- The parameter we have here is similar to what we have in Linear regression, which is a $θ$. 
 
-Now we have the following:
+- Our prediction is: sigmoid of a linear operation.
 
 $$
-P(y | x;θ) = P(1 | x;θ) ^y .P(1 - y | x;θ) ^{(1-y)} = (h_\theta(x))^y.(1-h_\theta(x))^{(1-y)}
+\displaylines{
+h_θ(x) = g(θ^T x) = \frac{1} {1 + e^{θ^Tx}}
+}
 $$
+
+What we do is the following:
+
+$$
+\displaylines {
+L(θ) = ∏_{i=1} ^ m p(y\ |\ x;\theta) \\ 
+l(\theta) = log(L(\theta))
+}
+$$
+
+We can maximize $l(\theta)$:
+
+$$
+\frac {∂ l} {∂ θ_j} (θ) = ∑_{i=1}^m(y^{(i)} - h_θ(x^{(i)})) x_j^{(i)}
+$$
+
+So what we do is gradient ascent.

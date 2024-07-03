@@ -91,22 +91,33 @@ window.Quarto = {
 </header>
 
 
-<section id="logistic-regression" class="level1">
-<h1>Logistic Regression</h1>
-<section id="what-is-logistic-regression" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-logistic-regression">What is Logistic Regression ?</h2>
-<p>It is something that is similar to a Classification Problem. It tells us some kind of “Probabilistic” representation of an event with binary outcomes, each represented as {0 or 1}.</p>
-<section id="mathematical-explanation." class="level3">
-<h3 class="anchored" data-anchor-id="mathematical-explanation.">Mathematical Explanation.</h3>
-<p>We have our parameter <span class="math inline">\(θ\)</span> which is our vector (n+1 dimensional, where n is the number of parameters). Our data is of the form {<span class="math inline">\(x^{(i)}, y^{(i)}\)</span>}, where x is an n-dimensional vector of parameter values and y is 0 or 1.</p>
-<p>Our prediction model is based on the sigmoid function. <span class="math display">\[
-P(y=1 | x;θ) = h_θ (x) = \frac {1} {1 + e^{θ^Tx}} = g(θ^Tx)
-\]</span></p>
-<p>Now we have the following:</p>
+<section id="classification-and-logistic-regression" class="level1">
+<h1>Classification and Logistic Regression:</h1>
+<section id="logistic-regression-problem" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-regression-problem">Logistic Regression Problem:</h2>
+<p>This is somewhat related to the binary classification problem <span class="math inline">\((y ∈ \{0,1\})\)</span>, but where give out the probability of it being of the output 1.</p>
+<ul>
+<li><p>The data we have is of the form of <span class="math inline">\((x^{(i)}, y^{(i)})\)</span> where x is an n-dimensional vector. (We can pad it with one to make it into an (n+1) dimensional vector) and y is a {0,1}.</p></li>
+<li><p>The parameter we have here is similar to what we have in Linear regression, which is a <span class="math inline">\(θ\)</span>.</p></li>
+<li><p>Our prediction is: sigmoid of a linear operation.</p></li>
+</ul>
 <p><span class="math display">\[
-P(y | x;θ) = P(1 | x;θ) ^y .P(1 - y | x;θ) ^{(1-y)} = (h_\theta(x))^y.(1-h_\theta(x))^{(1-y)}
+\displaylines{
+h_θ(x) = g(θ^T x) = \frac{1} {1 + e^{θ^Tx}}
+}
 \]</span></p>
-</section>
+<p>What we do is the following:</p>
+<p><span class="math display">\[
+\displaylines {
+L(θ) = ∏_{i=1} ^ m p(y\ |\ x;\theta) \\
+l(\theta) = log(L(\theta))
+}
+\]</span></p>
+<p>We can maximize <span class="math inline">\(l(\theta)\)</span>:</p>
+<p><span class="math display">\[
+\frac {∂ l} {∂ θ_j} (θ) = ∑_{i=1}^m(y^{(i)} - h_θ(x^{(i)})) x_j^{(i)}
+\]</span></p>
+<p>So what we do is gradient ascent.</p>
 </section>
 </section>
 
