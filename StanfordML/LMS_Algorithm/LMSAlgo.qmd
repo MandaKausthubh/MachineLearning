@@ -1,0 +1,66 @@
+---
+title: LMS Algorithm Implementations 
+format: html
+---
+
+# Creating the setup for Linear Regression
+```{python}
+import numpy as np
+
+class UnmatchedDimensions(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
+
+class LinearRegression:
+    N_Dimensions = 1
+    LearingRate = 1
+    Weights = np.zeros(1)
+
+    def __init__(self, N_Dimensions: int) -> None:
+        self.N_Dimensions = N_Dimensions
+        self.Weights = np.zeros(N_Dimensions+1)
+
+
+    def Hypothesis (self, x_data_point:np.ndarray) -> np.float128:
+        return np.inner(self.Weights, x_data_point)
+
+
+    def LMSWeight (self, X_data: np.ndarray, Y_data: np.ndarray) -> np.float128:
+        weight = np.float128(0.0)
+        if len(X_data) != len(Y_data):
+            raise UnmatchedDimensions("The Y_data and X_data have different sizes")
+        for x,y in zip(X_data, Y_data):
+            weight += (y - self.Hypothesis(x)) ** 2
+        return weight/len(X_data)
+
+    def TrainModel (self, X_data: np.ndarray, Y_data: np.ndarray) -> None:
+        self.Weights = np.linalg.inv(X_data.T.dot(X_data)).dot(X_data.T).dot(Y_data)
+
+```
+
+# Creating the data
+```{python}
+import matplotlib.pyplot as plt
+
+def TargetLine(x):
+    return -1.5*x + 7
+
+N = 80
+x_data = np.random.rand(N) * 10
+y_data = np.random.normal(0,1,N) + TargetLine(x_data)
+
+x_axis = np.linspace(start=0, stop=10, num=1000)
+
+plt.plot(x_axis, TargetLine(x_axis))
+plt.scatter(x_data,y_data,s=10,c='r')
+```
+
+# Preparing data:
+```{python}
+X_data = np.c_[np.ones_like(x_data), x_data]
+Y_data = y_data
+
+Model1 = LinearRegression(1)
+```

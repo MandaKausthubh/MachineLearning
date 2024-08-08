@@ -1,0 +1,31 @@
+---
+title: "Generalized Linear Models"
+format: html
+---
+
+# Generalized Linear Models
+
+## The Exponetitial Class of Probability Distributions
+
+To work with GLMs we first need to explore the Exponetitial Class of Probability distributions.
+$$
+P(y;n) =  b(y)\ \text{exp}(η^T T(y) - a(η))
+$$
+
+Here we have:
+
+- $T(y)$ the suffiecient statistical parameter. (This is our target function)
+- $η$ is the natural parameter.
+- $a(η)$ is the partition function. (This is there purely to normalize the integeral)
+
+Gaussian and Bernoulli distributions are examples of Exponetitial family of distributions.
+Other distributions that are also a part of this class are Multinomial class, Poisson, Gamma, Beta and the Dirchelet Class.
+
+## Constructing GLMs
+
+1. $y\ | x;θ\ \sim \ \text{ExponetialFamily}(\eta)$
+2. Our goal is to predict the value of $T(y)$ given a value of $x$.
+3. The natural parameter is linearly related to x, $η = θ^T x$
+
+
+

@@ -1,0 +1,12 @@
+---
+title: "Generative Learning Algorithm"
+format: html
+---
+
+# Generative Learning Algorithm
+
+We have two kinds of classification algorithms:
+
+- **Discriminative Learning Problems** : Algorithms that either try to find the mapping or some kind of probability distribution of for the solution of y based on the input x.
+
+- **Generative Algorithms**: Algorithms that try to find $p(x\ |\ y)$. This means that we are intending to find the set of features that are based on a given outbook.
