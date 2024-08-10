@@ -12,7 +12,6 @@ class UnmatchedDimensions(Exception):
         self.message = message
         super().__init__(self.message)
 
-
 class LinearRegression:
     N_Dimensions = 1
     LearingRate = 1
@@ -63,4 +62,13 @@ X_data = np.c_[np.ones_like(x_data), x_data]
 Y_data = y_data
 
 Model1 = LinearRegression(1)
+Model1.TrainModel(X_data=X_data, Y_data=Y_data)
+print(Model1.Weights)
+
+def NewLine(x, W):
+    return W[0] + W[1]*x
+
+plt.plot(x_axis, NewLine(x_axis, Model1.Weights), '--', c='orange')
+plt.plot(x_axis, TargetLine(x_axis), 'b')
+plt.scatter(x_data,y_data,s=10,c='r')
 ```

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>LMS Algorithm Implementations</title>
+<title>Locally Weighted Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,16 +57,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="LMSAlgo_files/libs/clipboard/clipboard.min.js"></script>
-<script src="LMSAlgo_files/libs/quarto-html/quarto.js"></script>
-<script src="LMSAlgo_files/libs/quarto-html/popper.min.js"></script>
-<script src="LMSAlgo_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="LMSAlgo_files/libs/quarto-html/anchor.min.js"></script>
-<link href="LMSAlgo_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="LMSAlgo_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="LMSAlgo_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="LMSAlgo_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="LMSAlgo_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="LocallyWeighted_files/libs/clipboard/clipboard.min.js"></script>
+<script src="LocallyWeighted_files/libs/quarto-html/quarto.js"></script>
+<script src="LocallyWeighted_files/libs/quarto-html/popper.min.js"></script>
+<script src="LocallyWeighted_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="LocallyWeighted_files/libs/quarto-html/anchor.min.js"></script>
+<link href="LocallyWeighted_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="LocallyWeighted_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="LocallyWeighted_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="LocallyWeighted_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="LocallyWeighted_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">LMS Algorithm Implementations</h1>
+<h1 class="title">Locally Weighted Regression</h1>
 </div>
 
 
@@ -96,95 +96,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="creating-the-setup-for-linear-regression" class="level1">
-<h1>Creating the setup for Linear Regression</h1>
-<div id="9a26b16a" class="cell" data-execution_count="1">
+<div id="4c49e0c1" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> UnmatchedDimensions(<span class="pp">Exception</span>):</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, message):</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.message <span class="op">=</span> message</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(<span class="va">self</span>.message)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LinearRegression:</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    N_Dimensions <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    LearingRate <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    Weights <span class="op">=</span> np.zeros(<span class="dv">1</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, N_Dimensions: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.N_Dimensions <span class="op">=</span> N_Dimensions</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.Weights <span class="op">=</span> np.zeros(N_Dimensions<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> Hypothesis (<span class="va">self</span>, x_data_point:np.ndarray) <span class="op">-&gt;</span> np.float128:</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.inner(<span class="va">self</span>.Weights, x_data_point)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> LMSWeight (<span class="va">self</span>, X_data: np.ndarray, Y_data: np.ndarray) <span class="op">-&gt;</span> np.float128:</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        weight <span class="op">=</span> np.float128(<span class="fl">0.0</span>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(X_data) <span class="op">!=</span> <span class="bu">len</span>(Y_data):</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> UnmatchedDimensions(<span class="st">"The Y_data and X_data have different sizes"</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> x,y <span class="kw">in</span> <span class="bu">zip</span>(X_data, Y_data):</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>            weight <span class="op">+=</span> (y <span class="op">-</span> <span class="va">self</span>.Hypothesis(x)) <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> weight<span class="op">/</span><span class="bu">len</span>(X_data)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> TrainModel (<span class="va">self</span>, X_data: np.ndarray, Y_data: np.ndarray) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.Weights <span class="op">=</span> np.linalg.inv(X_data.T.dot(X_data)).dot(X_data.T).dot(Y_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="creating-the-data" class="level1">
-<h1>Creating the data</h1>
-<div id="2ac279ff" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> TargetLine(x):</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="fl">1.5</span><span class="op">*</span>x <span class="op">+</span> <span class="dv">7</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">80</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>x_data <span class="op">=</span> np.random.rand(N) <span class="op">*</span> <span class="dv">10</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>y_data <span class="op">=</span> np.random.normal(<span class="dv">0</span>,<span class="dv">1</span>,N) <span class="op">+</span> TargetLine(x_data)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>x_axis <span class="op">=</span> np.linspace(start<span class="op">=</span><span class="dv">0</span>, stop<span class="op">=</span><span class="dv">10</span>, num<span class="op">=</span><span class="dv">1000</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>plt.plot(x_axis, TargetLine(x_axis))</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>plt.scatter(x_data,y_data,s<span class="op">=</span><span class="dv">10</span>,c<span class="op">=</span><span class="st">'r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="LMSAlgo_files/figure-html/cell-3-output-1.png" width="590" height="411" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="preparing-data" class="level1">
-<h1>Preparing data:</h1>
-<div id="d7ad6869" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X_data <span class="op">=</span> np.c_[np.ones_like(x_data), x_data]</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Y_data <span class="op">=</span> y_data</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>Model1 <span class="op">=</span> LinearRegression(<span class="dv">1</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Model1.TrainModel(X_data<span class="op">=</span>X_data, Y_data<span class="op">=</span>Y_data)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Model1.Weights)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> NewLine(x, W):</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> W[<span class="dv">0</span>] <span class="op">+</span> W[<span class="dv">1</span>]<span class="op">*</span>x</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>plt.plot(x_axis, NewLine(x_axis, Model1.Weights), <span class="st">'--'</span>, c<span class="op">=</span><span class="st">'orange'</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>plt.plot(x_axis, TargetLine(x_axis), <span class="st">'b'</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plt.scatter(x_data,y_data,s<span class="op">=</span><span class="dv">10</span>,c<span class="op">=</span><span class="st">'r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[ 6.89305913 -1.49299131]</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="LMSAlgo_files/figure-html/cell-4-output-2.png" width="590" height="411" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
 
 </main>
 <!-- /main column -->
