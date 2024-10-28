@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.46">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -150,14 +150,14 @@ J(θ) = \frac {1} {2} ∑_{i=1}^m (y^{(i)} - h_{θ}(x^{(i)})) ^ 2
 <h2 class="anchored" data-anchor-id="code-example-of-linear-regression">Code example of Linear Regression</h2>
 <section id="importing-python-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="importing-python-libraries">Importing Python Libraries</h3>
-<div id="347ff120" class="cell" data-execution_count="1">
+<div id="d9beaf6c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="defining-the-gradient-descent-function" class="level3">
 <h3 class="anchored" data-anchor-id="defining-the-gradient-descent-function">Defining the Gradient Descent Function</h3>
-<div id="22a06ed3" class="cell" data-execution_count="2">
+<div id="5b97dec5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> GradientDescent(gradient_equation, learning_rate, start, n_iter<span class="op">=</span><span class="dv">100</span>, tolerance<span class="op">=</span><span class="fl">1e-06</span>):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    vector <span class="op">=</span> start</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_iter):</span>
@@ -170,9 +170,9 @@ J(θ) = \frac {1} {2} ∑_{i=1}^m (y^{(i)} - h_{θ}(x^{(i)})) ^ 2
 </section>
 <section id="generating-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="generating-the-data">Generating the data:</h3>
-<div id="96ce9163" class="cell" data-execution_count="3">
+<div id="eaf9646d" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> TargetLine(x):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">2</span><span class="op">*</span>x <span class="op">+</span> <span class="fl">4.5</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">4.5</span><span class="op">*</span>x <span class="op">+</span> <span class="dv">3</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> <span class="dv">20</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.random.random(M)<span class="op">*</span><span class="dv">10</span></span>
@@ -185,7 +185,7 @@ J(θ) = \frac {1} {2} ∑_{i=1}^m (y^{(i)} - h_{θ}(x^{(i)})) ^ 2
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="LMS_files/figure-html/cell-4-output-1.png" width="579" height="411" class="figure-img"></p>
+<p><img src="LMS_files/figure-html/cell-4-output-1.png" width="566" height="414" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -193,14 +193,14 @@ J(θ) = \frac {1} {2} ∑_{i=1}^m (y^{(i)} - h_{θ}(x^{(i)})) ^ 2
 </section>
 <section id="preparing-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="preparing-the-data">Preparing the data</h3>
-<div id="552e38d8" class="cell" data-execution_count="4">
+<div id="d51f7a03" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x_data <span class="op">=</span> np.dstack((np.ones_like(x), x))[<span class="dv">0</span>]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>y_data <span class="op">=</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="gradient-descent" class="level3">
 <h3 class="anchored" data-anchor-id="gradient-descent">Gradient Descent</h3>
-<div id="555ee7ac" class="cell" data-execution_count="5">
+<div id="54d85406" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Prediction(x, theta):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.inner(theta, x)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -226,12 +226,12 @@ J(θ) = \frac {1} {2} ∑_{i=1}^m (y^{(i)} - h_{θ}(x^{(i)})) ^ 2
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>plt.plot(x_axis, TargetLine(x_axis))</span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>plt.plot(x_axis, NewLine(x_axis))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[4.94309011 1.91443466]</code></pre>
+<pre><code>[2.72519224 4.55025405]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="LMS_files/figure-html/cell-6-output-2.png" width="579" height="411" class="figure-img"></p>
+<p><img src="LMS_files/figure-html/cell-6-output-2.png" width="566" height="412" class="figure-img"></p>
 </figure>
 </div>
 </div>

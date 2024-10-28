@@ -52,7 +52,7 @@ def GradientDescent(gradient_equation, learning_rate, start, n_iter=100, toleran
 ```{python}
 
 def TargetLine(x):
-	return 2*x + 4.5
+	return 4.5*x + 3
 
 M = 20
 x = np.random.random(M)*10

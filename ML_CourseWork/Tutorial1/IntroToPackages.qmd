@@ -1,0 +1,47 @@
+---
+title: Intro to Python Packages 
+format: html
+---
+
+# Numpy
+
+## NDArrays and shapes
+```{python}
+import numpy as np
+
+arr1 = [1,2,3,4,5,6]
+arr2 = [[1,2,3,4,5,6], [7,8,9,10,11,12]]
+
+np_arr1 = np.array(arr1)
+np_arr2 =  np.array(arr2)
+print(np_arr1)
+print(np_arr2)
+print(np_arr1.shape)
+print(np_arr2.shape)
+```
+
+## How to do slicing in np arrays
+```{python}
+print(np_arr1[:3])
+print(np_arr2[:,:3])
+```
+
+## How to concatonate np arrays
+```{python}
+arr1 = np.array([
+    [1,2,3],
+    [3,4,5],
+    [5,6,7]
+])
+
+arr2 = np.array([
+    [1,2,3],
+    [3,4,5],
+    [5,6,7]
+])
+arr3 = np.concatenate((arr1, arr2), axis=0)
+arr4 = np.concatenate((arr1, arr2), axis=1)
+
+print(arr3)
+print(arr4)
+```
